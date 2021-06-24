@@ -1,7 +1,4 @@
 # Python OOP
-In python, object oriented programming is based on the four pillars:
-- Functions and good practices of functions
-
 ## Functions
 Let's create a function
 
@@ -144,4 +141,147 @@ print(requests_api.content) # Prints out the HTML source
 print(type(requests_api.status_code)) # Prints the type = <class 'int'>
 print(type(requests_api.headers)) # = <class 'requests.structures.CaseInsensitiveDict'>
 print(type(requests_api.content)) # = <class 'bytes'>
+```
+
+
+## The four pillars of OOP
+In python, object oriented programming is based on the four pillars:
+- Abstraction
+    - Fill
+    - these
+- Inheritance
+    - in
+    - later
+- Encapsulation
+    - on
+    - today
+- Polymorphism
+    - or
+    - later
+    
+- Step 1 - Create an `animal.py` file to create parent class
+- Step 2 - Create a file called `reptile.py` to abstract data and inherit from `animal.py`
+- Step 3 - Create a file `snake.py`
+- Step 4 - Create a file called `python.py` and at this point we should be able to utilise inheritence from the previous files and make everything available in `python.py`
+
+Let's get in to it, starting with `animal.py`
+```python
+class Animal: # Follow the correct naming convention
+    # We need to initialise with built in method called __init__(self)
+    # self refers to current class
+    def __init__(self):
+        self.alive = True
+        self.spine = True
+        self.eyes = True
+        self.lungs = True
+
+    def breathe(self):
+        return "Keep breathing to stay alive!"
+
+    def eat(self):
+        return "Time to eat"
+
+    def move(self):
+        return "Move left and right to stay awake"
+
+
+# We need to create an object of this class in order to use any methods
+cat = Animal() # Creating an object of Animal class
+# For cat as a user the functionality inside Animal class and the method breathe is abstracted
+print(cat.breathe())
+```
+To make life easier, PyCharm will tell you when you do, for example, `cat.`, to which file each function belongs to:
+
+![](images/image4.png)
+
+So on the left we have the function and on the right we have where it belongs to! That way it makes it easier to know if you are referencing the correct function
+
+Cool, now let's create `reptile.py`
+```python
+from animal import Animal
+```
+If this was not in the same directory as your current file, you would have to give the absolute position
+```python
+class Reptile(Animal): # Inheriting from animal class
+    def __init__(self): # note the (self), if this is missing it can cause errors, check for this in exam
+        super().__init__() # super is used to inherit everything from the parent class, this may come up in the exam
+        self.cold_blooded = True
+        self.tetrapods = None
+        self.heart_chambers = [3, 4]
+
+    def seek_heat(self):
+        return "It's chilly looking have fun in the sun"
+
+    def hunt(self):
+        return "Keep working hard to find food"
+
+    def use_venom(self):
+        return "If I have it I will use it"
+
+# Let's create an object of Reptile class
+smart_reptile = Reptile()
+print(smart_reptile.breathe()) # breathe method is inherited from Animal class
+print(smart_reptile.hunt()) # hunt() is available in Reptile class
+print(smart_reptile.eat())
+print(smart_reptile.move())
+print(smart_reptile.hunt())
+```
+If we go back to `animal.py` for a second, we can see that PyCharm makes us aware that the `class` is being used in reptile:
+
+![](images/image3.png)
+
+And now on to `snake.py`
+```python
+from reptile import Reptile
+
+class Snake(Reptile):
+    def __init__(self):
+        super().__init__()
+        self.forked_tongue = True
+        self.cold_blooded = True
+```
+Let's add some specific methods (methods means behaviours)
+```python
+    def use_tongue_to_smell(self):
+        return "If I can touch it I can smell it"
+```
+Create an object of snake
+```python
+smart_snake = Snake()
+print(smart_snake.move()) # move() is available from Animal class
+print(smart_snake.hunt()) # hunt() is available from Reptile class
+print(smart_snake.use_tongue_to_smell())
+```
+Now notice how we haven't called `Animal` at all, because it was inherited in `reptile.py` we automatically get access to it without having to manually import it
+
+Hey, while we're at it, functions that start with but don't end with `__` will be hidden from the program. It is encapsulated. The data is hidden but can still be accessed, so you can hide data that is useful but you don't want to be generally available (passwords, encryption data, etc.)
+
+![](images/image5.png)
+
+Notice how `__shed_skin` is not in the autocomplete list!
+
+Finally, let's go to `python.py`
+```python
+from snake import Snake
+
+class Python(Snake):
+    def __init__(self):
+        super().__init__()
+        self.large = True
+        self.two_lungs = True
+
+    def digest_large_prey(self):
+        return "I can digest anything without chewing"
+
+    def climb(self):
+        return "Up we go!"
+
+    def __shed_skin(self):
+        return "Bye skin"
+
+fast_python = Python()
+print(fast_python.__)
+print(fast_python.digest_large_prey())
+print(fast_python.hunt())
+print(fast_python.shed_skin())
 ```
