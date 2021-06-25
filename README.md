@@ -158,7 +158,9 @@ In python, object oriented programming is based on the four pillars:
 - Polymorphism
     - or
     - later
-    
+
+![](https://trello-attachments.s3.amazonaws.com/603d260f5690ef1cd5b54430/60d0573c92d08904283b2a80/2c411f8fb74fe44050dcad0eb2c9d748/image.png)
+
 - Step 1 - Create an `animal.py` file to create parent class
 - Step 2 - Create a file called `reptile.py` to abstract data and inherit from `animal.py`
 - Step 3 - Create a file `snake.py`
